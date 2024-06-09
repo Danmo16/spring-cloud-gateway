@@ -1,3 +1,10 @@
+server:
+  port: 9000
+  tomcat:
+    threads:
+      max: 200
+    connection-timeout: 5000ms
+
 spring:
   cloud:
     gateway:
@@ -31,9 +38,3 @@ spring:
     redis:
       host: localhost
       port: 6379
-
-server:
-  tomcat:
-    threads:
-      max: 200
-    connection-timeout: 5000ms
