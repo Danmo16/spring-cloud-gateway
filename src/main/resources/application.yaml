@@ -1,22 +1,39 @@
 spring:
   cloud:
     gateway:
+      default-filters:
+        - name: PrefixPath
+          args:
+            prefix: /api
+        - name: AddRequestHeader
+          args:
+            name: X-Forwarded-For
+            value: "{remoteAddress}"
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenishRate: 10
+              burstCapacity: 20
       routes:
         - id: vuelos
           uri: ${VUELOS_ROUTE_URI:http://localhost:3001}
           predicates:
             - Path=/vuelos/**
-          filters:
-            - PrefixPath=/api
         - id: hotels
           uri: ${HOTELS_ROUTE_URI:http://localhost:8000}
           predicates:
             - Path=/hotels/**
-          filters:
-            - PrefixPath=/api
         - id: explora
           uri: ${EXPLORA_ROUTE_URI:http://localhost:8000}
           predicates:
             - Path=/explora/**
-          filters:
-            - PrefixPath=/api
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+server:
+  tomcat:
+    threads:
+      max: 200
+    connection-timeout: 5000ms
