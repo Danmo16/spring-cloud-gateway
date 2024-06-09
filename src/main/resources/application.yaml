@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: vuelos
+          uri: ${VUELOS_ROUTE_URI:http://localhost:3001}
+          predicates:
+            - Path=/vuelos/**
+          filters:
+            - PrefixPath=/api
+        - id: hotels
+          uri: ${HOTELS_ROUTE_URI:http://localhost:8000}
+          predicates:
+            - Path=/hotels/**
+          filters:
+            - PrefixPath=/api
+        - id: explora
+          uri: ${EXPLORA_ROUTE_URI:http://localhost:8000}
+          predicates:
+            - Path=/explora/**
+          filters:
+            - PrefixPath=/api
