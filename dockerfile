@@ -1,5 +1,5 @@
 # Usar la imagen oficial de OpenJDK como base
-FROM openjdk:11-jre-slim
+FROM openjdk:22-jdk
 
 # Añadir un volumen para el almacenamiento temporal de archivos
 VOLUME /tmp
